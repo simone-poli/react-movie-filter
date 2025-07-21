@@ -16,6 +16,7 @@ const initialMovies = [
 
 
 function App() {
+  const [titleFilter, setTitleFilter] = useState('')
   const [genreFilter, setGenreFilter] = useState('')
   const [movies, setMovie] = useState(initialMovies)
 
@@ -29,6 +30,16 @@ function App() {
       setMovie(filtered)
     }
   }, [genreFilter])
+  
+  useEffect(() => {
+    if (titleFilter === '') {
+      setMovie(initialMovies)
+    } else {
+      const filteredTitle = initialMovies.filter(movie => movie.title.includes(titleFilter)
+      )
+      setMovie(filteredTitle)
+    }
+  }, [titleFilter])
 
 
 
@@ -43,6 +54,7 @@ function App() {
             <option value="Romantico">Romantico</option>
             <option value="Azione">Azione</option>
           </select>
+          <input className="form-control m-4" type="text" value={titleFilter} onChange={(e) => setTitleFilter(e.target.value)}/>
         </div>
 
         <ul className="list-group m-4">
