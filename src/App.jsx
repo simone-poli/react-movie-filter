@@ -24,11 +24,11 @@ function App() {
     if (genreFilter === '') {
       setMovie(initialMovies)
     } else {
-      const filteredMovie = initialMovies.filter(movie => movie.genre.includes(genreFilter)
+      const filtered = initialMovies.filter(movie => movie.genre.includes(genreFilter)
       )
-      setMovie(filteredMovie)
+      setMovie(filtered)
     }
-  })
+  }, [genreFilter])
 
 
 
@@ -36,7 +36,13 @@ function App() {
     <>
       <div className="container">
         <div className="text-center">
-          <input className="form-control m-4" type="text" placeholder='Inserisci genere' value={genreFilter} onChange={(e) => setGenreFilter(e.target.value)} />
+          <select className="form-control m-4" type="text" value={genreFilter} onChange={(e) => setGenreFilter(e.target.value)}>
+            <option value="">Selezione Genere</option>
+            <option value="Fantascienza">Fantascienza</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Romantico">Romantico</option>
+            <option value="Azione">Azione</option>
+          </select>
         </div>
 
         <ul className="list-group m-4">
