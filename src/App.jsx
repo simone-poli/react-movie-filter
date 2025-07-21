@@ -16,6 +16,8 @@ const initialMovies = [
 
 
 function App() {
+  const [newMovie, setNewMovie] = useState('')
+  const [newGenr, setNewGenr] = useState('')
   const [titleFilter, setTitleFilter] = useState('')
   const [genreFilter, setGenreFilter] = useState('')
   const [movies, setMovie] = useState(initialMovies)
@@ -30,7 +32,7 @@ function App() {
       setMovie(filtered)
     }
   }, [genreFilter])
-  
+
   useEffect(() => {
     if (titleFilter === '') {
       setMovie(initialMovies)
@@ -41,6 +43,19 @@ function App() {
     }
   }, [titleFilter])
 
+  function handleSubmit(e) {
+    e.preventDefault()
+    setMovie((prev) => [
+      ...prev,
+      {
+        title: newMovie,
+        genre: newGenr,
+      }
+    ])
+
+    setNewMovie('')
+    setNewGenr('')
+  }
 
 
   return (
@@ -54,7 +69,7 @@ function App() {
             <option value="Romantico">Romantico</option>
             <option value="Azione">Azione</option>
           </select>
-          <input className="form-control m-4" type="text" value={titleFilter} onChange={(e) => setTitleFilter(e.target.value)}/>
+          <input className="form-control m-4" type="text" placeholder='Filtra titolo film' value={titleFilter} onChange={(e) => setTitleFilter(e.target.value)} />
         </div>
 
         <ul className="list-group m-4">
@@ -69,6 +84,15 @@ function App() {
             })
           }
         </ul>
+
+
+
+
+        <form onSubmit={handleSubmit}>
+          <input className="form-control" type="text" placeholder='insert new movie' value={newMovie} onChange={e => setNewMovie(e.target.value)} />
+          <input className="form-control" type="text" placeholder='insert gener' value={newGenr} onChange={e => setNewGenr(e.target.value)} />
+          <button className="btn" type="submit">Insert</button>
+        </form>
 
       </div>
 
