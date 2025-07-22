@@ -24,24 +24,16 @@ function App() {
 
 
   useEffect(() => {
-    if (genreFilter === '') {
+    if (genreFilter === '' && titleFilter === '') {
       setMovie(initialMovies)
     } else {
-      const filtered = initialMovies.filter(movie => movie.genre.includes(genreFilter)
+      const filtered = initialMovies.filter(movie => movie.genre.includes(genreFilter) && movie.title.includes(titleFilter)
       )
       setMovie(filtered)
     }
-  }, [genreFilter])
+  }, [genreFilter,titleFilter])
 
-  useEffect(() => {
-    if (titleFilter === '') {
-      setMovie(initialMovies)
-    } else {
-      const filteredTitle = initialMovies.filter(movie => movie.title.includes(titleFilter)
-      )
-      setMovie(filteredTitle)
-    }
-  }, [titleFilter])
+ 
 
   function handleSubmit(e) {
     e.preventDefault()
